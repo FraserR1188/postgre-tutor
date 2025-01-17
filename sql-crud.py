@@ -27,30 +27,84 @@ session = Session()
 # creating the database using declarative_base subclass
 base.metadata.create_all(db)
 
-# Query 1 - select all records from the "Artist" table
-# artists = session.query(Artist)
-# for artist in artists:
-#     print(artist.ArtistId, artist.Name, sep=" | ")
 
-# Query 2 - select only the "Name" column from the "Artist" table
-# artists = session.query(Artist)
-# for artist in artists:
-#     print(artist.Name)
+# creating records on our Programmer table
+ada_lovelace = Programmer(
+    first_name = "Ada",
+    last_name = "Lovelace",
+    gender = "F",
+    nationality = "British",
+    famous_for = "First Programmer"
+)
 
-# Query 3 - select only "Queen" from the "Artist" table
-# artist = session.query(Artist).filter_by(Name="Queen").first()
-# print(artist.ArtistId, artist.Name, sep=" | ")
+alan_turing = Programmer(
+    first_name = "Alan",
+    last_name = "Turing",
+    gender = "M",
+    nationality = "British",
+    famous_for = "Modern Computing"
+)
 
-# Query 4 - select only by "ArtistId" #51 from the "Artist" table
-# artist = session.query(Artist).filter_by(ArtistId=51).first()
-# print(artist.ArtistId, artist.Name, sep=" | ")
+grace_hopper = Programmer(
+    first_name = "Grace",
+    last_name = "Hopper",
+    gender = "F",
+    nationality = "American",
+    famous_for = "COBOL Language"
+)
 
-# Query 5 - selct only the albums with "ArtistId" #51 on the "ALbum" table
-# albums = session.query(Album).filter_by(ArtistId=51)
-# for album in albums:
-#     print(album.AlbumId, album.Title, sep=" | ")
+margaret_hamilton = Programmer(
+    first_name = "Margaret",
+    last_name = "Hamilton",
+    gender = "F",
+    nationality = "American",
+    famous_for = "Apollo 11"
+)
 
-# Query 6 - select all tracks where the composer is 'Queen' from the "Track" table
-tracks = session.query(Track).filter_by(Composer="Queen")
-for track in tracks:
-    print(track.TrackId, track.Name, track.AlbumId, track.MediaTypeId, track.GenreId, track.Composer, track.Milliseconds, track.Bytes, track.UnitPrice, sep=" | ")
+bill_gates = Programmer(
+    first_name = "Bill",
+    last_name = "Gates",
+    gender = "M",
+    nationality = "American",
+    famous_for = "Microsoft"
+)
+
+tim_berners_lee = Programmer(
+    first_name = "Tim",
+    last_name = "Berners-Lee",
+    gender = "M",
+    nationality = "British",
+    famous_for = "World Wide Web"
+)
+
+robbie_fraser = Programmer(
+    first_name = "Robie",
+    last_name = "Fraser",
+    gender = "M",
+    nationality = "British",
+    famous_for = "Web dev"
+)
+
+# add each instance of our programmers to our session
+# session.add(ada_lovelace)
+# session.add(alan_turing)
+# session.add(grace_hopper)
+# session.add(margaret_hamilton)
+# session.add(bill_gates)
+# session.add(tim_berners_lee)
+session.add(robbie_fraser)
+
+# commit our session to the adatabase
+session.commit()
+
+# query the datrabase to find all programmers
+programmers = session.query(Programmer)
+for programmer in programmers:
+    print(
+        programmer.id,
+        programmer.first_name + " " + programmer.last_name,
+        programmer.gender,
+        programmer.nationality,
+        programmer.famous_for,
+        sep=" | "
+    )
